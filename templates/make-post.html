@@ -1,0 +1,49 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+{% include "header.html" %}
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/edit-bg.jpg')}}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            {% if is_edit: %}
+            <h1>Edit Post</h1>
+            {% else: %}
+            <h1>New Post</h1>
+            {% endif %}
+            <span class="subheading">You're going to make a great blog post!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {{ ckeditor.load() }}
+        <form action="{{ url_for('add_new_post') }}" method="post">
+          <label for="title">Title</label> <br>
+          <input name="title" type="text" class='form-control' required="required" placeholder="Title"><br>
+
+          <label for="subtitle">Subtitle</label><br>
+          <input name='subtitle' type="text" class="form-control" required="required" placeholder="Subtitle"><br>
+
+          <label for="image_url">Image URL</label><br>
+          <input type="text" name="img_url" class="form-control" required="required" placeholder="Image URL"><br>
+
+          <label for="body">Body</label><br>
+          {{ ckeditor.create() }}
+
+          <button type="submit" class="my-4 btn btn-primary btn-sm">Submit</button>
+
+      </div>
+    </div>
+  </div>
+
+{% include "footer.html" %}
+{% endblock %}
